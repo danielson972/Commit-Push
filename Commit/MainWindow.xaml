@@ -1,0 +1,40 @@
+<Window x:Class="Commit.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Commit e Push">
+    <Grid x:Name="Root" RequestedTheme="Dark" Background="#272636" Padding="28" RowSpacing="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="Commit e Push" FontSize="27" FontWeight="SemiBold"/>
+        <Grid Grid.Row="1" ColumnSpacing="8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBox x:Name="Repository" Header="Caminho do repositório Git"
+                     Background="#202334" BorderBrush="#427DB4"/>
+            <Button x:Name="Browse" Grid.Column="1" Content="Procurar…"
+                    VerticalAlignment="Bottom" Click="Browse_Click"/>
+        </Grid>
+        <TextBox Grid.Row="2" x:Name="Message" Header="Mensagem do commit"
+                 AcceptsReturn="True" TextWrapping="Wrap" MinHeight="80"
+                 ScrollViewer.VerticalScrollBarVisibility="Auto"
+                 Background="#202334" BorderBrush="#427DB4"/>
+        <Grid Grid.Row="3" ColumnSpacing="12">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock x:Name="Status" VerticalAlignment="Center" TextWrapping="Wrap"
+                       Foreground="#C2BED4" Text="Adiciona todas as alterações do repositório e envia com git push."/>
+            <Button x:Name="Submit" Grid.Column="1" Content="Commit" Click="Submit_Click"
+                    Style="{StaticResource AccentButtonStyle}"/>
+            <Button x:Name="CloseButton" Grid.Column="2" Content="Fechar" Click="Close_Click"/>
+        </Grid>
+    </Grid>
+</Window>
