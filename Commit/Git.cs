@@ -18,6 +18,7 @@ internal static class Git
             StandardErrorEncoding = System.Text.Encoding.UTF8
         };
         start.Environment["GIT_TERMINAL_PROMPT"] = "0";
+        start.Environment["LC_ALL"] = "C";
         foreach (string argument in arguments)
             start.ArgumentList.Add(argument);
 
@@ -45,7 +46,7 @@ internal static class Git
         public string RequireSuccess()
         {
             if (ExitCode != 0)
-                throw new InvalidOperationException($"git {Operation} terminou com código {ExitCode}.\n\n{Details}");
+                throw new GitFailure(Operation, ExitCode, Details);
             return Output;
         }
     }

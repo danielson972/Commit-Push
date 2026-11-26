@@ -5,13 +5,21 @@ namespace Commit;
 
 internal static class Dialogs
 {
-    public static async Task ShowErrorAsync(XamlRoot root, string title, string details)
+    public static async Task ShowErrorAsync(XamlRoot root, string title, string explanation, string? technicalDetails = null)
     {
+        var content = new StackPanel { Spacing = 12 };
+        content.Children.Add(DetailsBox(explanation));
+        if (technicalDetails is not null)
+        {
+            content.Children.Add(new TextBlock { Text = "Detalhes técnicos" });
+            content.Children.Add(DetailsBox(technicalDetails));
+        }
+
         var dialog = new ContentDialog
         {
             XamlRoot = root,
             Title = title,
-            Content = DetailsBox(details),
+            Content = content,
             CloseButtonText = "Fechar",
             DefaultButton = ContentDialogButton.Close
         };
@@ -80,9 +88,15 @@ internal static class Dialogs
         return await dialog.ShowAsync() == ContentDialogResult.Primary;
     }
 
-    private static TextBox DetailsBox(string details) => new()
+    private static ScrollViewer DetailsBox(string details) => new()
     {
-        Text = details, IsReadOnly = true, AcceptsReturn = true,
-        TextWrapping = TextWrapping.Wrap, MaxHeight = 160
+        MaxHeight = 155,
+        VerticalScrollBarVisibility = ScrollBarVisibility.Auto,
+        Content = new TextBlock
+        {
+            Text = details,
+            TextWrapping = TextWrapping.Wrap,
+            IsTextSelectionEnabled = true
+        }
     };
 }

@@ -14,17 +14,27 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <TextBox x:Name="Repository" Header="Caminho do repositório Git"
                      Background="#202334" BorderBrush="#427DB4"/>
             <Button x:Name="Browse" Grid.Column="1" Content="Procurar…"
                     VerticalAlignment="Bottom" Click="Browse_Click"/>
+            <DropDownButton x:Name="HistoryButton" Grid.Column="2" Content="Histórico" VerticalAlignment="Bottom">
+                <DropDownButton.Flyout>
+                    <MenuFlyout x:Name="HistoryMenu"/>
+                </DropDownButton.Flyout>
+            </DropDownButton>
         </Grid>
         <TextBox Grid.Row="2" x:Name="Message" Header="Mensagem do commit"
                  AcceptsReturn="True" TextWrapping="Wrap" MinHeight="80"
                  ScrollViewer.VerticalScrollBarVisibility="Auto"
                  Background="#202334" BorderBrush="#427DB4"/>
-        <Grid Grid.Row="3" ColumnSpacing="12">
+        <Grid Grid.Row="3" ColumnSpacing="12" RowSpacing="8">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
@@ -35,6 +45,9 @@
             <Button x:Name="Submit" Grid.Column="1" Content="Commit" Click="Submit_Click"
                     Style="{StaticResource AccentButtonStyle}"/>
             <Button x:Name="CloseButton" Grid.Column="2" Content="Fechar" Click="Close_Click"/>
+            <ProgressBar x:Name="OperationProgress" Grid.Row="1" Grid.ColumnSpan="3"
+                         Minimum="0" Maximum="4" Visibility="Collapsed"
+                         AutomationProperties.Name="Etapas concluídas do commit e push"/>
         </Grid>
     </Grid>
 </Window>
